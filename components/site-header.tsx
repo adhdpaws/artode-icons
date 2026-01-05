@@ -34,12 +34,6 @@ export async function SiteHeader() {
                 </Link>
 
                 <div className="flex items-center gap-4">
-                    <Link
-                        href="/playground"
-                        className="text-xs font-mono text-secondary hover:text-primary transition-colors mr-4"
-                    >
-                        Playground
-                    </Link>
                     <SponsorParticles />
 
                     <div className="w-px h-4 bg-secondary/10" />

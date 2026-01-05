@@ -1,7 +1,8 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import { Copy, Check, Box } from "lucide-react";
+import { Copy, Check, Box, Play } from "lucide-react";
+import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
@@ -63,6 +64,21 @@ export function Hero({ totalIcons }: { totalIcons: number }) {
                     <span className="text-foreground/80">Art</span>
                     <span>&</span>
                     <span className="text-foreground/80">Code</span>
+                </motion.div>
+
+                {/* Playground Link */}
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                >
+                    <Link
+                        href="/playground"
+                        className="flex items-center gap-2 text-[10px] uppercase tracking-widest font-mono text-secondary hover:text-primary transition-colors hover:underline decoration-primary/30"
+                    >
+                        <Play className="w-3 h-3 fill-current" />
+                        Interactive Playground
+                    </Link>
                 </motion.div>
             </div>
 
