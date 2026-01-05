@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { ArtodeIcon } from "@/components/artode-icon";
-import { Check, Copy, RefreshCw, Moon, Sun, Monitor } from "lucide-react";
+import { Check, Copy, RefreshCw, Moon, Sun, Monitor, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -19,6 +19,7 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
     const [drawType, setDrawType] = useState<"fill" | "stroke">("fill");
     const [forceHover, setForceHover] = useState<boolean>(false);
     const [backgroundMode, setBackgroundMode] = useState<"light" | "dark" | "transparent">("light");
+    const [mode, setMode] = useState<"standard" | "interactive">("standard");
     const [isHovered, setIsHovered] = useState(false);
 
     // Search/Filter for icon selection
@@ -60,6 +61,7 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
         if (color !== "#D80018") props.push(`color="${color}"`);
         if (drawType !== "fill") props.push(`drawType="${drawType}"`);
         if (forceHover) props.push(`forceHover`);
+        if (mode === "interactive") props.push(`interactive`);
 
         // Convert "React" to "ReactIcon" or similar? 
         // The registry exports them as "ReactIcon", "VueIsIcon" etc?
@@ -76,7 +78,7 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
         const componentName = cleanName + "Icon";
 
         return `<${componentName} ${props.join(" ")} />`;
-    }, [selectedIconName, size, color, drawType, forceHover]);
+    }, [selectedIconName, size, color, drawType, forceHover, mode]);
 
     const handleCopyCode = () => {
         navigator.clipboard.writeText(generatedCode);
@@ -160,12 +162,38 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
 
                     {/* Animation State */}
                     <div className="space-y-3 mb-6">
-                        <label className="text-xs font-mono text-secondary/60 uppercase">Animation</label>
-                        <div className="flex items-center gap-3">
+                        <label className="text-xs font-mono text-secondary/60 uppercase">Mode & Animation</label>
+                        <div className="flex flex-col gap-2">
+                            <div className="flex bg-secondary/5 p-1 rounded-lg border border-secondary/10">
+                                <button
+                                    onClick={() => setMode("standard")}
+                                    className={cn(
+                                        "flex-1 py-1.5 text-xs font-mono uppercase rounded-md transition-all",
+                                        mode === "standard"
+                                            ? "bg-background shadow-sm text-primary font-medium"
+                                            : "text-secondary/60 hover:text-secondary"
+                                    )}
+                                >
+                                    Standard
+                                </button>
+                                <button
+                                    onClick={() => setMode("interactive")}
+                                    className={cn(
+                                        "flex-1 py-1.5 text-xs font-mono uppercase rounded-md transition-all flex items-center justify-center gap-1",
+                                        mode === "interactive"
+                                            ? "bg-background shadow-sm text-primary font-medium"
+                                            : "text-secondary/60 hover:text-secondary"
+                                    )}
+                                >
+                                    <Sparkles className="w-3 h-3" />
+                                    Interactive
+                                </button>
+                            </div>
+
                             <button
                                 onClick={() => setForceHover(!forceHover)}
                                 className={cn(
-                                    "flex-1 py-2 px-3 border rounded text-xs font-mono uppercase transition-all flex items-center justify-center gap-2",
+                                    "w-full py-2 px-3 border rounded text-xs font-mono uppercase transition-all flex items-center justify-center gap-2",
                                     forceHover
                                         ? "border-primary bg-primary/5 text-primary"
                                         : "border-secondary/10 bg-secondary/5 text-secondary/60 hover:border-secondary/20"
@@ -295,6 +323,7 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
                             color={color}
                             drawType={drawType}
                             forceHover={forceHover}
+                            interactive={mode === "interactive"}
                             className="relative z-10 transition-transform duration-300"
                         />
                     </div>

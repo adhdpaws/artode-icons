@@ -88,11 +88,9 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
             const data = tCtx.getImageData(0, 0, size, size).data;
             const pts = [];
 
-            // Optimization: Adjust step based on size to keep particle count reasonable 
+            // Optimization: Only skip pixels if size is extremely large to prevent freezing
             let step = 1;
-            // Heuristic for step size to avoid > 4000 particles
-            if (size > 64) step = 2;
-            if (size > 200) step = 3;
+            if (size > 200) step = 2; // Only skip for very large icons
 
             for (let y = 0; y < size; y += step) {
                 for (let x = 0; x < size; x += step) {
@@ -104,12 +102,12 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
 
         const ptsA = getIconPoints();
 
-        // Particles
+        // Particles - Matched to SocialParticleCard (Slow & Organic)
         let particles = Array.from({ length: ptsA.length }).map((_, i) => ({
             x: ptsA[i].x,
             y: ptsA[i].y,
             homeA: ptsA[i],
-            speed: 0.02 + Math.random() * 0.04,
+            speed: 0.001 + Math.random() * 0.002, // Slow, viscous movement (matches SocialParticleCard)
             friction: 0.9 + Math.random() * 0.05,
         }));
 
@@ -128,21 +126,22 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
                     p.x += dx * p.speed;
                     p.y += dy * p.speed;
 
-                    // Size of particle
-                    const s = size > 64 ? 2 : 1.5;
+                    // Tiny particles for dense look (matches SocialParticleCard)
+                    const s = 1.0;
                     ctx.fillRect(p.x, p.y, s, s);
                 });
             } else {
-                // Go Home
+                // Go Home (Re-form shape)
                 particles.forEach(p => {
                     const target = p.homeA;
                     const dx = target.x - p.x;
                     const dy = target.y - p.y;
 
-                    p.x += dx * (p.speed * 0.5); // Slower return
-                    p.y += dy * (p.speed * 0.5);
+                    p.x += dx * (p.speed * 1.5); // Slightly faster return than disperse, but still organic
+                    p.y += dy * (p.speed * 1.5);
 
-                    const s = size > 64 ? 2 : 1.5;
+                    // Tiny particles
+                    const s = 0.8;
                     ctx.fillRect(p.x, p.y, s, s);
                 });
             }
