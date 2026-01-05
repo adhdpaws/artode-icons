@@ -37,6 +37,9 @@ jobs:
       - name: Build library
         run: bun run build:lib
 
+      - name: Update npm
+        run: npm install -g npm@latest
+
       - name: Publish to NPM
         id: publish
         # Only publish if package.json version is successfully incremented
