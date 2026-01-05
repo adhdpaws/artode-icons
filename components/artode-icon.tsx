@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react';
 
-interface ArtodeIconProps {
+export interface ArtodeIconProps {
     /** SVG Path string for the icon shape */
     path: string;
     /** Size of the canvas/icon in pixels */
@@ -13,6 +13,8 @@ interface ArtodeIconProps {
     className?: string;
     /** Force hover state for animation control */
     forceHover?: boolean;
+    /** Draw either the stroke or the fill of the SVG path */
+    drawType?: 'fill' | 'stroke';
 }
 
 export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
@@ -20,7 +22,8 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
     size = 32,
     color = '#D80018',
     className,
-    forceHover = false
+    forceHover = false,
+    drawType = 'fill'
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [internalHover, setInternalHover] = React.useState(false);
@@ -53,14 +56,20 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
         const path = new Path2D(pathString);
 
         maskCtx.fillStyle = '#000';
+        maskCtx.strokeStyle = '#000';
+        maskCtx.lineWidth = 2; // Default stroke width
 
         // Assumption: Input paths are normalized to a standard viewport (e.g., 24x24 like Lucide/Material)
         // Adjust scale to fill the requested size
         const scale = size / 24;
         maskCtx.scale(scale, scale);
 
-        // Use evenodd rule to handle complex paths with holes (like X or WhatsApp)
-        maskCtx.fill(path, "evenodd");
+        if (drawType === 'stroke') {
+            maskCtx.stroke(path);
+        } else {
+            // Use evenodd rule to handle complex paths with holes (like X or WhatsApp)
+            maskCtx.fill(path, "evenodd");
+        }
 
         const maskData = maskCtx.getImageData(0, 0, size, size).data;
 
@@ -134,7 +143,7 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
         return () => {
             if (animId) cancelAnimationFrame(animId);
         };
-    }, [pathString, size, color, isHovered]);
+    }, [pathString, size, color, isHovered, drawType]);
 
     return (
         <canvas

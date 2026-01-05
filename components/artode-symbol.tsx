@@ -145,7 +145,7 @@ export const ArtodeSymbol: React.FC<{ className?: string, yOffset?: number, anch
 
                 // Measure texts for perfect centering
                 textCtx.font = 'bold 20px ui-monospace, SFMono-Regular, Menlo, monospace';
-                const mainWidth = textCtx.measureText('adhd dev').width;
+                const mainWidth = textCtx.measureText('adhd.dev').width;
 
                 textCtx.font = '500 10px ui-monospace, SFMono-Regular, Menlo, monospace';
                 const byWidth = textCtx.measureText('by').width;
@@ -159,9 +159,9 @@ export const ArtodeSymbol: React.FC<{ className?: string, yOffset?: number, anch
                 textCtx.font = '500 10px ui-monospace, SFMono-Regular, Menlo, monospace';
                 textCtx.fillText('by', startX, cy + 2); // Alignment tweak
 
-                // Draw "adhd.dev"
+                // Draw "adhd dev"
                 textCtx.font = 'bold 20px ui-monospace, SFMono-Regular, Menlo, monospace';
-                textCtx.fillText('adhd.dev', startX + byWidth + gap, cy);
+                textCtx.fillText('adhd dev', startX + byWidth + gap, cy);
 
                 const textData = textCtx.getImageData(0, 0, width, height).data;
                 const textPoints: { x: number, y: number }[] = [];
