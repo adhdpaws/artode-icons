@@ -38,7 +38,7 @@ const ParticleText = ({ isHovered }: { isHovered: boolean }) => {
         ctx.scale(dpr, dpr);
 
         // Robust font stack for consistent rendering on Mac/Safari
-        const font = "500 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
+        const font = "400 12px ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace";
 
         // Helper
         const getPoints = (text: string) => {
@@ -60,7 +60,7 @@ const ParticleText = ({ isHovered }: { isHovered: boolean }) => {
             for (let y = 0; y < height; y += 1) {
                 for (let x = 0; x < width; x += 1) {
                     // Lower threshold to catch anti-aliased pixels in Safari
-                    if (data[(y * width + x) * 4 + 3] > 20) pts.push({ x, y });
+                    if (data[(y * width + x) * 4 + 3] > 60) pts.push({ x, y }); // Increased threshold slightly to thin out edge fuzz
                 }
             }
             return pts;
@@ -91,7 +91,7 @@ const ParticleText = ({ isHovered }: { isHovered: boolean }) => {
                 p.x += dx * 0.1;
                 p.y += dy * 0.1;
 
-                ctx.fillRect(p.x, p.y, 1.5, 1.5);
+                ctx.fillRect(p.x, p.y, 1, 1);
             });
 
             animId = requestAnimationFrame(render);
