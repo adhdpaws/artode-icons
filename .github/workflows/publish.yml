@@ -12,6 +12,7 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    environment: npm
     permissions:
       contents: read
       id-token: write # Required for provenance
@@ -40,6 +41,6 @@ jobs:
         id: publish
         # Only publish if package.json version is successfully incremented
         run: |
-          npm publish --access public
+          npm publish --access public --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
