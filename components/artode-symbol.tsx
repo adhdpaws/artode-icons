@@ -128,7 +128,7 @@ export const ArtodeSymbol: React.FC<{ className?: string, yOffset?: number, anch
                             homeY: y,
                             vx: 0,
                             vy: 0,
-                            speed: 0.001 + Math.random() * 0.004 // Individual random speed
+                            speed: 0.002 + Math.random() * 0.008 // Individual random speed (2x faster)
                         });
                     }
                 }
