@@ -1,11 +1,27 @@
 {
   "name": "artode-icons",
   "version": "0.1.0",
-  "private": true,
+  "description": "A premium collection of canvas-based, animated icons designed with a Swiss International Style aesthetic.",
+  "license": "MIT",
+  "author": "Artode",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "next dev",
     "prebuild": "node scripts/download-fonts.js",
     "build": "next build",
+    "build:lib": "tsup",
     "start": "next start",
     "lint": "bun run check-style:fix && npx ultracite fix",
     "lint:check": "bun run check-style && npx ultracite check",
@@ -16,6 +32,10 @@
     "sync-registry": "tsx scripts/sync-registry.ts",
     "build-registry": "tsx scripts/registry-build.ts",
     "gen-cli": "bun run check-style:fix && bun run sync-registry && bun run build-registry && bun lint"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-rc.0",
@@ -34,8 +54,6 @@
     "next": "16.0.7",
     "next-themes": "^0.4.6",
     "nuqs": "^2.8.5",
-    "react": "19.2.1",
-    "react-dom": "19.2.1",
     "react-hotkeys-hook": "^5.2.1",
     "simple-icons": "^16.4.0",
     "sonner": "^2.0.7",
@@ -50,7 +68,10 @@
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
     "postcss": "^8.5.6",
+    "react": "19.2.1",
+    "react-dom": "19.2.1",
     "tailwindcss": "^4.1.18",
+    "tsup": "^8.5.1",
     "typescript": "^5.9.3",
     "ultracite": "7.0.5"
   }
