@@ -186,8 +186,8 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
                     const dx = target.x - p.x;
                     const dy = target.y - p.y;
 
-                    p.x += dx * (p.speed * 8.0); // Faster return per user request ("little faster than dispersion", actually MUCH faster to be visible)
-                    p.y += dy * (p.speed * 8.0);
+                    p.x += dx * (p.speed * 3.0); // Return speed: 3x dispersion speed (visible but snappy)
+                    p.y += dy * (p.speed * 3.0);
 
                     // Tiny particles
                     const s = 0.8;
