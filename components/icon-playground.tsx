@@ -2,8 +2,9 @@
 
 import React, { useState, useMemo } from "react";
 import { ArtodeIcon } from "@/components/artode-icon";
-import { Check, Copy, RefreshCw, Moon, Sun, Monitor } from "lucide-react";
+import { Check, Copy, RefreshCw, Moon, Sun, Monitor, MoveLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 import { toast } from "sonner";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
@@ -104,9 +105,18 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
             {/* Sidebar Controls */}
             <div className="w-full md:w-80 border-r border-secondary/10 bg-background flex flex-col overflow-y-auto">
                 <div className="p-6 border-b border-secondary/10">
-                    <h2 className="font-mono text-sm uppercase tracking-widest text-secondary font-medium mb-4">
-                        Configuration
-                    </h2>
+                    <div className="flex items-center gap-3 mb-6">
+                        <Link
+                            href="/"
+                            className="p-1.5 -ml-1.5 rounded-md text-secondary/60 hover:text-primary hover:bg-secondary/5 transition-colors"
+                            title="Back to Home"
+                        >
+                            <MoveLeft className="w-4 h-4" />
+                        </Link>
+                        <h2 className="font-mono text-sm uppercase tracking-widest text-secondary font-medium">
+                            Configuration
+                        </h2>
+                    </div>
 
                     {/* Icon Selector */}
                     <div className="space-y-3 mb-6">
