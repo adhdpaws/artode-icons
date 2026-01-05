@@ -8,28 +8,16 @@ import { cn } from "@/lib/utils";
 import { ArtodeSymbol } from "@/components/artode-symbol";
 import { usePackageNameContext } from "@/components/providers/package-name";
 import { PACKAGE_MANAGER } from "@/constants";
-import { getPackageManagerPrefix } from "@/lib/get-package-manager-prefix";
-
-const EXAMPLE_ICONS = ["archive", "activity", "github", "twitter", "heart", "camera", "cloud"];
+import { getInstallCommand } from "@/lib/get-install-command";
 
 export function Hero({ totalIcons }: { totalIcons: number }) {
     const { packageName, setPackageName } = usePackageNameContext();
     const [copied, setCopied] = useState(false);
-    const [iconIndex, setIconIndex] = useState(0);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setIconIndex((prev) => (prev + 1) % EXAMPLE_ICONS.length);
-        }, 2000);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const prefix = getPackageManagerPrefix(packageName);
-    const currentIcon = EXAMPLE_ICONS[iconIndex];
+    const installPrefix = getInstallCommand(packageName);
+    const installCommand = `${installPrefix} artode-icons`;
 
     const handleCopy = () => {
-        const installCommand = `${prefix} shadcn@latest add @artode/${currentIcon}`;
         navigator.clipboard.writeText(installCommand);
         setCopied(true);
         toast.success("Command copied to clipboard");
@@ -101,21 +89,8 @@ export function Hero({ totalIcons }: { totalIcons: number }) {
 
                 <div className="relative group rounded-md bg-secondary/5 border border-secondary/10 p-4 font-mono text-xs text-secondary/80 flex items-center justify-center hover:border-secondary/20 transition-colors">
                     <div className="flex items-center truncate">
-                        <span className="text-secondary/60">{prefix} shadcn@latest add @artode/</span>
-                        <div className="relative h-4 min-w-[60px]">
-                            <AnimatePresence mode="popLayout">
-                                <motion.span
-                                    key={currentIcon}
-                                    initial={{ y: 20, opacity: 0 }}
-                                    animate={{ y: 0, opacity: 1 }}
-                                    exit={{ y: -20, opacity: 0 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                                    className="absolute left-0 top-0 text-primary font-bold"
-                                >
-                                    {currentIcon}
-                                </motion.span>
-                            </AnimatePresence>
-                        </div>
+                        <span className="text-secondary/60">{installPrefix} </span>
+                        <span className="text-primary font-bold ml-2">artode-icons</span>
                     </div>
                     <button
                         onClick={handleCopy}

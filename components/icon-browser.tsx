@@ -314,7 +314,7 @@ function CopyCodeAction({ name }: { name: string }) {
 }
 
 import { usePackageNameContext } from "@/components/providers/package-name";
-import { getPackageManagerPrefix } from "@/lib/get-package-manager-prefix";
+import { getInstallCommand } from "@/lib/get-install-command";
 
 function CopyCLIAction({ name }: { name: string }) {
     const [status, setStatus] = useState<"idle" | "success">("idle");
@@ -322,17 +322,13 @@ function CopyCLIAction({ name }: { name: string }) {
 
     const handleCopy = (e: React.MouseEvent) => {
         e.stopPropagation();
-        const registryName = getRegistryName(name);
 
-        const prefix = getPackageManagerPrefix(packageName);
-        // User requested explicitly clean syntax: "shadcn add @artode/[icon]"
-        // Note: Users generally need to configure the registry alias unless this is a real npm package logic,
-        // but we are implementing the requested syntax.
-        const command = `${prefix} shadcn@latest add @artode/${registryName}`;
+        const prefix = getInstallCommand(packageName);
+        const command = `${prefix} artode-icons`;
 
         navigator.clipboard.writeText(command);
         setStatus("success");
-        toast.success(`Copied ${prefix} command to clipboard`);
+        toast.success(`Copied install command to clipboard`);
         setTimeout(() => setStatus("idle"), 2000);
     };
 
@@ -347,7 +343,7 @@ function CopyCLIAction({ name }: { name: string }) {
                 </button>
             </TooltipTrigger>
             <TooltipContent side="right">
-                <p>Copy CLI Command ({packageName})</p>
+                <p>Copy Install Command</p>
             </TooltipContent>
         </Tooltip>
     );

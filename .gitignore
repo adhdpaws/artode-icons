@@ -52,3 +52,6 @@ next-env.d.ts
 /fonts/*.otf
 /fonts/*EULA.pdf
 /fonts/Grilli-Type-EULA.pdf
+
+# Build artifacts
+/dist
