@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A premium collection of canvas-based, animated icons designed with a Swiss International Style aesthetic.",
   "license": "MIT",
-  "author": "Artode",
+  "author": "adhd.dev <https://x.com/adhd_paws>",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
