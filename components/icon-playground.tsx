@@ -345,42 +345,50 @@ export function IconPlayground({ allIcons }: IconPlaygroundProps) {
 
                     {/* Foreground Content: Trigger Zone & Standard Icon */}
                     <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
-                        {/* The interactive trigger zone / Standard Icon Container */}
+
+                        {/* 70% Boundary for resetting interaction */}
                         <div
-                            style={{ width: size, height: size }}
-                            className="relative group pointer-events-auto flex items-center justify-center"
-                            onMouseEnter={() => {
-                                setIsHovered(true);
-                                if (mode === "interactive") setGlobalMouseActive(true);
+                            className="pointer-events-auto flex items-center justify-center"
+                            style={{
+                                width: Math.max(size * 1.5, stageSize.width * 0.7),
+                                height: Math.max(size * 1.5, stageSize.height * 0.7)
                             }}
                             onMouseLeave={() => {
-                                // For standard mode we might want to track hover status for glow
-                                // For interactive mode, we DO NOT clear globalMouseActive here, only on stage leave
-                                // But we clear isHovered for the glow effect? 
-                                // Actually glow logic was "(forceHover || isHovered) && ...".
-                                // If we want glow to persist with particles, keep it true?
-                                // User didn't specify glow persistence, but let's sync it with globalMouseActive for consistency.
-                                if (mode !== "interactive") setIsHovered(false);
+                                // Reset interaction when leaving the 70% zone
+                                if (mode === "interactive") {
+                                    setGlobalMouseActive(false);
+                                    setIsHovered(false);
+                                }
                             }}
                         >
-                            {/* Glow effect */}
-                            <div className={cn(
-                                "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/20 blur-[100px] rounded-full opacity-0 transition-opacity duration-1000 pointer-events-none",
-                                (forceHover || isHovered || globalMouseActive) && "opacity-20"
-                            )} />
+                            {/* The interactive trigger zone / Standard Icon Container */}
+                            <div
+                                style={{ width: size, height: size }}
+                                className="relative group flex items-center justify-center"
+                                onMouseEnter={() => {
+                                    setIsHovered(true);
+                                    if (mode === "interactive") setGlobalMouseActive(true);
+                                }}
+                            >
+                                {/* Glow effect */}
+                                <div className={cn(
+                                    "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/20 blur-[100px] rounded-full opacity-0 transition-opacity duration-1000 pointer-events-none",
+                                    (forceHover || isHovered || globalMouseActive) && "opacity-20"
+                                )} />
 
-                            {/* Standard Icon */}
-                            {mode === "standard" && (
-                                <ArtodeIcon
-                                    path={selectedPath}
-                                    size={size}
-                                    color={color}
-                                    drawType={drawType}
-                                    forceHover={forceHover}
-                                    interactive={false}
-                                    className="relative z-10 transition-transform duration-300"
-                                />
-                            )}
+                                {/* Standard Icon */}
+                                {mode === "standard" && (
+                                    <ArtodeIcon
+                                        path={selectedPath}
+                                        size={size}
+                                        color={color}
+                                        drawType={drawType}
+                                        forceHover={forceHover}
+                                        interactive={false}
+                                        className="relative z-10 transition-transform duration-300"
+                                    />
+                                )}
+                            </div>
                         </div>
                     </div>
                 </div>
