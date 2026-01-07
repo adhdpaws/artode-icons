@@ -428,6 +428,13 @@ export const components: ComponentDefinition[] = [
     type: "registry:ui"
   },
   {
+    name: "linkedin",
+    path: path.join(__dirname, "../icons/linkedin.tsx"),
+    registryDependencies: ["artode-icon"],
+    dependencies: [],
+    type: "registry:ui"
+  },
+  {
     name: "java",
     path: path.join(__dirname, "../icons/java.tsx"),
     registryDependencies: ["artode-icon"],

@@ -23,6 +23,8 @@ export interface ArtodeIconProps {
     globalMouse?: boolean;
     /** Custom canvas size for interactive mode (width, height) */
     customCanvasSize?: { width: number; height: number };
+    /** Custom viewBox size of the SVG path. Defaults to 24. */
+    viewBoxSize?: number;
 }
 
 export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
@@ -34,7 +36,8 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
     drawType = 'fill',
     interactive = false,
     globalMouse = false,
-    customCanvasSize
+    customCanvasSize,
+    viewBoxSize = 24
 }) => {
     if (interactive) {
         return (
@@ -46,6 +49,7 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
                 forceHover={forceHover}
                 globalMouse={globalMouse}
                 customCanvasSize={customCanvasSize}
+                viewBoxSize={viewBoxSize}
             />
         );
     }
@@ -86,7 +90,7 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
 
         // Assumption: Input paths are normalized to a standard viewport (e.g., 24x24 like Lucide/Material)
         // Adjust scale to fill the requested size
-        const scale = size / 24;
+        const scale = size / viewBoxSize;
         maskCtx.scale(scale, scale);
 
         if (drawType === 'stroke') {
@@ -168,7 +172,7 @@ export const ArtodeIcon: React.FC<ArtodeIconProps> = ({
         return () => {
             if (animId) cancelAnimationFrame(animId);
         };
-    }, [pathString, size, color, isHovered, drawType]);
+    }, [pathString, size, color, isHovered, drawType, viewBoxSize]);
 
     return (
         <canvas

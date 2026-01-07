@@ -49,8 +49,8 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
     const [isMac, setIsMac] = useState(false);
     const [mounted, setMounted] = useState(false);
 
-    // Tab state
-    const [activeTab, setActiveTab] = useState<"all" | "socials">("all");
+    // Interactive mode state
+    const [isInteractive, setIsInteractive] = useState(false);
 
     useEffect(() => {
         setMounted(true);
@@ -63,10 +63,9 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
     });
 
     const categoryIcons = useMemo(() => {
-        if (activeTab === "all") return allIcons;
-        const socialNames = new Set(categories["Social"] || []);
-        return allIcons.filter(([name]) => socialNames.has(name));
-    }, [activeTab, allIcons, categories]);
+        // No filtering based on mode anymore, we show all icons
+        return allIcons;
+    }, [allIcons]);
 
     const fuse = useMemo(() => new Fuse(categoryIcons, {
         keys: ["0"], // Search by name (index 0 of tuple)
@@ -124,7 +123,7 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
                                 onChange={(e) => {
                                     setQuery(e.target.value);
                                 }}
-                                placeholder={`Search ${activeTab === 'socials' ? 'social icons' : 'icons'}...`}
+                                placeholder={isInteractive ? 'Search interactive icons...' : 'Search icons...'}
                                 className="flex-1 bg-transparent border-none outline-none font-sans text-sm text-foreground placeholder-secondary/40 h-9"
                             />
                             <div className="flex items-center gap-2 pl-2 border-l border-secondary/10">
@@ -159,21 +158,21 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
                                 {/* Interactive Toggle */}
                                 <div
                                     className="flex items-center gap-2 cursor-pointer group/toggle select-none pr-1"
-                                    onClick={() => setActiveTab(activeTab === "all" ? "socials" : "all")}
+                                    onClick={() => setIsInteractive(!isInteractive)}
                                 >
                                     <span className={cn(
                                         "hidden sm:block text-[10px] uppercase font-mono tracking-wider font-medium transition-colors",
-                                        activeTab === "socials" ? "text-primary" : "text-secondary/60"
+                                        isInteractive ? "text-primary" : "text-secondary/60"
                                     )}>
                                         Interactive
                                     </span>
                                     <div className={cn(
                                         "w-8 h-4 rounded-full transition-colors relative",
-                                        activeTab === "socials" ? "bg-primary" : "bg-secondary/20 group-hover/toggle:bg-secondary/30"
+                                        isInteractive ? "bg-primary" : "bg-secondary/20 group-hover/toggle:bg-secondary/30"
                                     )}>
                                         <div className={cn(
                                             "absolute top-0.5 bottom-0.5 left-0.5 w-3 h-3 bg-background rounded-full shadow-sm transition-transform duration-200",
-                                            activeTab === "socials" ? "translate-x-4" : "translate-x-0"
+                                            isInteractive ? "translate-x-4" : "translate-x-0"
                                         )} />
                                     </div>
                                 </div>
@@ -193,7 +192,7 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
                     <div className="p-8 md:p-12">
                         <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-8 gap-y-16 animate-in fade-in slide-in-from-bottom-2 duration-500">
                             {filteredIcons.sort((a, b) => a[0].localeCompare(b[0])).map(([name, path]) => (
-                                activeTab === "socials" ? (
+                                isInteractive ? (
                                     <SocialParticleCard
                                         key={name}
                                         name={name}
@@ -221,7 +220,7 @@ export function IconBrowser({ allIcons, categories }: IconBrowserProps) {
                                 </div>
                                 <div className="p-8 md:p-12 grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-x-8 gap-y-16">
                                     {categoryIcons.sort((a, b) => a[0].localeCompare(b[0])).map(([name, path]) => (
-                                        activeTab === "socials" ? (
+                                        isInteractive ? (
                                             <SocialParticleCard
                                                 key={name}
                                                 name={name}

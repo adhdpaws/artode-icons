@@ -59,5 +59,6 @@ export * from "./typescript";
 export * from "./vercel";
 export * from "./vue-js";
 export * from "./whatsapp";
+export * from "./linkedin";
 export * from "./x";
 export * from "./youtube";

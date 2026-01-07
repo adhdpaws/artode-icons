@@ -902,6 +902,21 @@
       ]
     },
     {
+      "name": "linkedin",
+      "type": "registry:ui",
+      "registryDependencies": [
+        "artode-icon"
+      ],
+      "dependencies": [],
+      "devDependencies": [],
+      "files": [
+        {
+          "path": "linkedin.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
       "name": "java",
       "type": "registry:ui",
       "registryDependencies": [

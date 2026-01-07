@@ -10,7 +10,7 @@
   "files": [
     {
       "path": "azure.tsx",
-      "content": "\"use client\";\n\nimport { ArtodeIcon, type ArtodeIconProps } from \"@/components/artode-icon\";\n\nconst PATH = \"M5.72 17.58L10.98 4h3.69l-4.58 13.6L5.72 17.6zm8.8 1.48l1.68-4.32 7.37 5.25H14.52z\";\n\nexport const AzureIcon = ({ className, size, drawType = \"fill\", ...props }: Omit<ArtodeIconProps, \"path\" | \"drawType\"> & { drawType?: \"fill\" | \"stroke\" }) => {\n  return (\n    <ArtodeIcon\n      path={PATH}\n      className={className}\n      size={size}\n      drawType={drawType}\n      {...props}\n    />\n  );\n};\n",
+      "content": "\"use client\";\n\nimport { ArtodeIcon, type ArtodeIconProps } from \"@/components/artode-icon\";\n\nconst PATH = \"M 23.076 23.142 a 1.588 1.588 0 0 0 1.506 -2.098 L 18.144 1.982 A 1.588 1.588 0 0 0 16.642 0.9 H 9.158 a 1.588 1.588 0 0 0 -1.504 1.082 L 1.218 21.044 a 1.588 1.588 0 0 0 1.506 2.098 h 4.648 a 1.588 1.588 0 0 0 1.506 -1.082 l 0.958 -2.836 4.85 3.604 a 1.586 1.586 0 0 0 0.948 0.314 M 12.61 10.856 16.162 21.384 a 0.53 0.53 0 0 1 -0.5 0.698 h -0.03 a 0.53 0.53 0 0 1 -0.316 -0.104 L 6.212 15.214 h 4.758 m 6.188 6.87 a 1.572 1.572 0 0 0 0.008 -1.038 L 10.732 1.982 l -0.008 -0.02 h 5.916 a 0.53 0.53 0 0 1 0.502 0.36 L 23.578 21.384 a 0.53 0.53 0 0 1 -0.332 0.67\";\n\nexport const AzureIcon = ({ className, size, drawType = \"fill\", ...props }: Omit<ArtodeIconProps, \"path\" | \"drawType\"> & { drawType?: \"fill\" | \"stroke\" }) => {\n  return (\n    <ArtodeIcon\n      path={PATH}\n      className={className}\n      size={size}\n      drawType={drawType}\n      {...props}\n    />\n  );\n};\n",
       "type": "registry:ui"
     }
   ]

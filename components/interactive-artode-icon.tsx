@@ -32,6 +32,7 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
     forceHover = false,
     globalMouse = false,
     customCanvasSize,
+    viewBoxSize = 24
 }) => {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const [internalHover, setInternalHover] = useState(false);
@@ -117,7 +118,7 @@ export const InteractiveArtodeIcon: React.FC<InteractiveArtodeIconProps> = ({
             const p = new Path2D(path);
             tCtx.save();
             tCtx.translate(px, py);
-            const scale = iconSize / 24;
+            const scale = iconSize / viewBoxSize;
             tCtx.scale(scale, scale);
             tCtx.fillStyle = '#000';
             tCtx.fill(p, "evenodd");
