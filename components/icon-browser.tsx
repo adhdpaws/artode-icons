@@ -30,14 +30,14 @@ import { SocialParticleCard } from "@/components/social-particle-card";
 
 // Social Handles Map (Simulated)
 const SOCIAL_PROFILES: Record<string, { username: string; url: string }> = {
-    "X": { username: "@adhdpaws", url: "https://x.com/adhdpaws" },
-    "Twitter": { username: "@adhdpaws", url: "https://x.com/adhdpaws" },
-    "GitHub": { username: "@adhdpaws", url: "https://github.com/adhdpaws" },
+    "X": { username: "@byadhddev", url: "https://x.com/byadhddev" },
+    "Twitter": { username: "@byadhddev", url: "https://x.com/byadhddev" },
+    "GitHub": { username: "@byadhddev", url: "https://github.com/byadhddev" },
     "LinkedIn": { username: "Artode", url: "https://linkedin.com/company/artode" },
     "Instagram": { username: "@artode_design", url: "https://instagram.com/artode_design" },
-    "YouTube": { username: "@adhdpaws", url: "https://youtube.com/@adhdpaws" },
-    "Twitch": { username: "@adhdpaws", url: "https://twitch.tv/adhdpaws" },
-    "Reddit": { username: "u/adhdpaws", url: "https://reddit.com/user/adhdpaws" },
+    "YouTube": { username: "@byadhddev", url: "https://youtube.com/@byadhddev" },
+    "Twitch": { username: "@byadhddev", url: "https://twitch.tv/byadhddev" },
+    "Reddit": { username: "u/byadhddev", url: "https://reddit.com/user/byadhddev" },
     // Defaults for others
 };
 

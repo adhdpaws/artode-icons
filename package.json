@@ -6,7 +6,7 @@
   "author": "adhd.dev <https://x.com/adhd_paws>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/adhdpaws/artode-icons.git"
+    "url": "https://github.com/byadhddev/artode-icons.git"
   },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

@@ -13,7 +13,7 @@ export const SponsorParticles: React.FC = () => {
 
     return (
         <Link
-            href="https://github.com/sponsors/adhdpaws"
+            href="https://github.com/sponsors/byadhddev"
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-2 relative h-6 group"
