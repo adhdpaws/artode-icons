@@ -128,7 +128,7 @@ export const ArtodeSymbol: React.FC<{ className?: string, yOffset?: number, anch
                             homeY: y,
                             vx: 0,
                             vy: 0,
-                            speed: 0.002 + Math.random() * 0.008 // Individual random speed (2x faster)
+                            speed: 0.002 + Math.random() * 0.01 // Individual random speed (2x faster)
                         });
                     }
                 }
@@ -161,7 +161,7 @@ export const ArtodeSymbol: React.FC<{ className?: string, yOffset?: number, anch
 
                 // Draw "adhd dev"
                 textCtx.font = 'bold 20px ui-monospace, SFMono-Regular, Menlo, monospace';
-                textCtx.fillText('adhd dev', startX + byWidth + gap, cy);
+                textCtx.fillText('adhd.dev', startX + byWidth + gap, cy);
 
                 const textData = textCtx.getImageData(0, 0, width, height).data;
                 const textPoints: { x: number, y: number }[] = [];
