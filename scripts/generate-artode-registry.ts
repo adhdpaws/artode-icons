@@ -28,7 +28,14 @@ Object.entries(paths).forEach(([name, d]) => {
   // Convert name to kebab-case for filename (e.g. Next.js -> next-js)
   const fileName = name.toLowerCase().replace(/\./g, "-").replace(/\s+/g, "-").replace(/\+/g, "plus").replace(/#/g, "sharp");
   // Ensure unique component name (PascalCase)
-  const componentName = name.replace(/[^a-zA-Z0-9]/g, "") + "Icon";
+  // Sanitize name for component (Handle special chars C++ -> CPlusPlus, C# -> CSharp)
+  let safeName = name
+    .replace(/\+/g, "Plus")
+    .replace(/#/g, "Sharp")
+    .replace(/\./g, "")
+    .replace(/[^a-zA-Z0-9]/g, "");
+
+  const componentName = safeName + "Icon";
 
   // Since this is a LOGO library, we default all to FILL
   // Unless we specifically want outline logos, but brands are usually filled.
